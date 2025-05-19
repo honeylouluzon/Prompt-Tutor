@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Review Tool</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Prompt Review Tool</h1>
+        <nav>
+            <button id="navHome">Home</button>
+            <button id="navLeaderboard">Leaderboard</button>
+            <button id="navAchievements">Achievements</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="homeSection">
+            <form id="promptForm">
+                <label for="promptText">Enter your prompt:</label>
+                <textarea id="promptText" required placeholder="Enter your prompt here..."></textarea>
+                
+                <label for="promptType">Evaluation type:</label>
+                <select id="promptType" required>
+                    <option value="" disabled selected>Select a use case</option>
+                    <option value="Chatbot">Chatbot</option>
+                    <option value="Coding">Coding</option>
+                    <option value="Image">Image Generation</option>
+                    <option value="Research">Deep Research</option>
+                </select>
+
+                <div id="userInfoInputs">
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="text" id="userContact" placeholder="LinkedIn URL or Email (optional)">
+                    <select id="userContinent">
+                        <option value="" disabled selected>Select Continent</option>
+                        <option value="North America">North America</option>
+                        <option value="South America">South America</option>
+                        <option value="Europe">Europe</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Africa">Africa</option>
+                        <option value="Oceania">Oceania</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="submitBtn">Review Prompt</button>
+            </form>
+        </section>
+
+        <!-- Review Section -->
+        <section id="reviewSection" style="display:none;">
+            <h2>Prompt Review</h2>
+            <div id="originalPromptDisplay"></div>
+            <div id="scoreDisplay"></div>
+            <div id="breakdownDisplay"></div>
+            <ul id="suggestionsList"></ul>
+            <div id="improvedPromptDisplay"></div>
+            <button id="copyImprovedBtn">Copy Improved Prompt</button>
+            <button id="downloadImprovedBtn">Download Improved Prompt</button>
+            <div class="reviewActions">
+                <button id="newPromptBtn">New Prompt</button>
+                <button id="toLeaderboardBtn">View Leaderboard</button>
+                <button id="toAchievementsBtn">My Achievements</button>
+            </div>
+        </section>
+
+        <!-- Leaderboard Section -->
+        <section id="leaderboardSection" style="display:none;">
+            <h2>Leaderboard</h2>
+            <div id="leaderboardFilters">
+                <button id="filterGlobal" class="active">Global</button>
+                <button id="filterRegional">My Continent</button>
+            </div>
+            <table id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>User</th>
+                        <th>Score</th>
+                        <th>Type</th>
+                        <th>Region</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filled dynamically -->
+                </tbody>
+            </table>
+            <p id="userRankText"></p>
+            <button id="backFromLeaderboard">Back</button>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievementsSection" style="display:none;">
+            <h2>My Achievements</h2>
+            <div id="profileInfoDisplay">
+                <p>Username: <span id="profileName"></span></p>
+                <p>Continent: <span id="profileContinent"></span></p>
+                <p>Contact: <span id="profileContact"></span></p>
+            </div>
+            <div id="badgesContainer">
+                <!-- Badges will be added dynamically -->
+            </div>
+            <button id="backFromAchievements">Back</button>
+        </section>
+    </main>
+
+    <!-- Notification Modal -->
+    <div id="notification" class="hidden"></div>
+
+    <!-- Scripts -->
+    <script src="js/dataManager.js"></script>
+    <script src="js/uiRenderer.js"></script>
+    <script src="js/promptEvaluator.js"></script>
+    <script src="js/badgeManager.js"></script>
+    <script src="js/knowledgeGraph.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
