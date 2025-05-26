@@ -28,6 +28,8 @@ const UIRenderer = {
         if (data.username) document.getElementById('username').value = data.username;
         if (data.contact) document.getElementById('userContact').value = data.contact;
         if (data.continent) document.getElementById('userContinent').value = data.continent;
+        if (data.prompt) document.getElementById('promptText').value = data.prompt;
+        if (data.type) document.getElementById('promptType').value = data.type;
     },
 
     // Review Section
@@ -42,6 +44,7 @@ const UIRenderer = {
         const scoreDisplay = document.getElementById('scoreDisplay');
         if (scoreDisplay) {
             scoreDisplay.textContent = `Score: ${result.score}/100`;
+            scoreDisplay.setAttribute('aria-live', 'polite');
         }
 
         // Show breakdown
@@ -49,9 +52,7 @@ const UIRenderer = {
         if (breakdownDisplay && result.criteria) {
             const breakdownHTML = Object.entries(result.criteria)
                 .map(([criterion, rating]) => `
-                    <div class="criterion">
-                        <strong>${criterion}:</strong> ${rating}/5
-                    </div>
+                    <div class="criterion"><strong>${criterion}:</strong> ${rating}/5</div>
                 `).join('');
             breakdownDisplay.innerHTML = breakdownHTML;
         }
@@ -66,10 +67,15 @@ const UIRenderer = {
                 li.className = 'clickable-suggestion';
                 li.style.cursor = 'pointer';
                 li.title = 'Click to emphasize this suggestion and auto-review';
+                li.tabIndex = 0;
+                li.setAttribute('aria-label', `Apply suggestion: ${suggestion}`);
                 li.onclick = () => {
                     if (typeof window.handleSuggestionClick === 'function') {
                         window.handleSuggestionClick(suggestion, result);
                     }
+                };
+                li.onkeydown = (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') li.onclick();
                 };
                 suggestionsList.appendChild(li);
             });
@@ -87,82 +93,78 @@ const UIRenderer = {
 
     // Leaderboard Section
     updateLeaderboardView(entries, filter = 'global') {
-        const tbody = document.querySelector('#leaderboardTable tbody');
+        const table = document.getElementById('leaderboardTable');
+        if (!table) return;
+        const tbody = table.querySelector('tbody');
         if (!tbody) return;
-
-        const userProfile = DataManager.loadProfile();
-        
-        // Sort entries by score (descending)
-        entries.sort((a, b) => b.score - a.score);
-
-        // Filter by continent if needed
-        if (filter === 'regional' && userProfile.continent) {
-            entries = entries.filter(entry => entry.continent === userProfile.continent);
+        tbody.innerHTML = '';
+        let filtered = entries;
+        if (filter === 'regional') {
+            const userContinent = localStorage.getItem('userContinent');
+            filtered = entries.filter(e => e.continent === userContinent);
         }
-
-        // Get user's rank
-        const userRank = entries.findIndex(entry => 
-            entry.username === userProfile.username
-        ) + 1;
-
-        // Update rank text
+        filtered.slice(0, 50).forEach((entry, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${idx + 1}</td>
+                <td>${entry.username || 'Anonymous'}</td>
+                <td>${entry.score}</td>
+                <td>${entry.type}</td>
+                <td>${entry.continent || '-'}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+        // Show user rank if present
         const userRankText = document.getElementById('userRankText');
         if (userRankText) {
-            userRankText.textContent = 
-                userRank > 0 
-                    ? `Your rank: ${userRank} of ${entries.length}`
-                    : 'You haven\'t submitted any prompts yet';
+            const username = localStorage.getItem('username');
+            const userIdx = filtered.findIndex(e => e.username === username);
+            if (userIdx >= 0) {
+                userRankText.textContent = `Your Rank: ${userIdx + 1}`;
+            } else {
+                userRankText.textContent = '';
+            }
         }
-
-        // Generate table rows
-        const rowsHTML = entries
-            .map((entry, index) => `
-                <tr class="${entry.username === userProfile.username ? 'highlight' : ''}">
-                    <td>${index + 1}</td>
-                    <td>${entry.username}</td>
-                    <td>${entry.score}</td>
-                    <td>${entry.type}</td>
-                    <td>${entry.continent}</td>
-                </tr>
-            `).join('');
-
-        tbody.innerHTML = rowsHTML;
     },
 
     // Achievements Section
     updateProfileDisplay(profile) {
-        const profileName = document.getElementById('profileName');
-        const profileContinent = document.getElementById('profileContinent');
-        const profileContact = document.getElementById('profileContact');
-
-        if (profileName) profileName.textContent = profile.username || 'Not set';
-        if (profileContinent) profileContinent.textContent = profile.continent || 'Not set';
-        if (profileContact) profileContact.textContent = profile.contact || 'Not set';
+        const name = document.getElementById('profileName');
+        const continent = document.getElementById('profileContinent');
+        const contact = document.getElementById('profileContact');
+        if (name) name.textContent = profile.username || '-';
+        if (continent) continent.textContent = profile.continent || '-';
+        if (contact) contact.textContent = profile.contact || '-';
+        // Show total prompts and average score if available
+        const infoDisplay = document.getElementById('profileInfoDisplay');
+        if (infoDisplay && profile.totalPrompts !== undefined) {
+            let stats = document.getElementById('profileStats');
+            if (!stats) {
+                stats = document.createElement('div');
+                stats.id = 'profileStats';
+                infoDisplay.appendChild(stats);
+            }
+            stats.innerHTML = `<p>Total Prompts: <b>${profile.totalPrompts}</b></p><p>Average Score: <b>${profile.averageScore.toFixed(1)}</b></p>`;
+        }
     },
 
     updateBadgesDisplay() {
         const container = document.getElementById('badgesContainer');
         if (!container) return;
-
         const badgeDefinitions = BadgeManager.getBadgeDefinitions();
-        const badgeStatuses = BadgeManager.getAllBadgeStatuses();
-
-        const badgesHTML = Object.entries(badgeDefinitions)
-            .map(([id, badge]) => {
-                const isUnlocked = !!badgeStatuses[id];
-                const unlockedAt = typeof badgeStatuses[id] === 'number' ? badgeStatuses[id] : null;
-                return `
-                    <div class="badge ${isUnlocked ? 'unlocked' : 'locked'}" id="badge_${id}" style="cursor:pointer;" title="Click to see progress">
-                        <span class="badgeIcon">${badge.icon}</span>
-                        <span class="badgeName">${badge.name}</span>
-                        <span class="badgeDesc">${badge.description}</span>
-                        ${isUnlocked && unlockedAt ? `<span class="badgeDate">Earned: ${new Date(unlockedAt).toLocaleDateString()}</span>` : ''}
-                    </div>
-                `;
-            }).join('');
-
+        const unlocked = DataManager.loadBadges();
+        let badgesHTML = '';
+        Object.entries(badgeDefinitions).forEach(([id, badge]) => {
+            const isUnlocked = unlocked[id];
+            badgesHTML += `
+                <div class="badge${isUnlocked ? '' : ' locked'}" id="badge_${id}" tabindex="0" aria-label="${badge.name}: ${badge.description}">
+                    <span class="badgeIcon">${badge.icon}</span>
+                    <span class="badgeName">${badge.name}</span>
+                    <span class="badgeDesc">${badge.description}</span>
+                </div>
+            `;
+        });
         container.innerHTML = badgesHTML;
-
         // Add click handlers for badge progress
         Object.entries(badgeDefinitions).forEach(([id, badge]) => {
             const badgeDiv = document.getElementById(`badge_${id}`);
@@ -180,6 +182,9 @@ const UIRenderer = {
                     }
                     UIRenderer.showNotification(`${badge.name}: ${badge.description}\n${progressMsg}`, 5000);
                 };
+                badgeDiv.onkeydown = (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') badgeDiv.onclick();
+                };
             }
         });
     },
@@ -191,9 +196,11 @@ const UIRenderer = {
 
         notification.textContent = message;
         notification.classList.remove('hidden');
+        notification.style.display = 'block';
 
         setTimeout(() => {
             notification.classList.add('hidden');
+            notification.style.display = 'none';
         }, duration);
     },
 
@@ -205,9 +212,11 @@ const UIRenderer = {
         if (isLoading) {
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
+            submitBtn.setAttribute('aria-busy', 'true');
         } else {
             submitBtn.classList.remove('loading');
             submitBtn.disabled = false;
+            submitBtn.removeAttribute('aria-busy');
         }
     },
 

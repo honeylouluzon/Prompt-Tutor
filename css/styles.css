@@ -1,0 +1,266 @@
+/* Global Styles for Prompt Tutor - UI/UX Enhancement */
+:root {
+  --font-family: 'Inter', sans-serif;
+  --color-bg-light: #FFFFFF;
+  --color-bg-dark: #1F2937;
+  --color-text-light: #111111;
+  --color-text-dark: #F9FAFB;
+  --color-accent-light: #2563EB;
+  --color-accent-dark: #3B82F6;
+  --color-border: #DDD;
+  --color-badge-locked: #B0B0B0;
+  --color-badge-unlocked: var(--color-accent-light);
+  --border-radius: 6px;
+  --transition: 0.2s all;
+}
+
+html {
+  font-family: var(--font-family);
+  background: var(--color-bg-light);
+  color: var(--color-text-light);
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg-light);
+  color: var(--color-text-light);
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+}
+
+header {
+  background: var(--color-accent-light);
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+}
+
+header nav button {
+  background: #fff;
+  color: var(--color-accent-light);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1.2rem;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+header nav button.active, header nav button:focus {
+  background: var(--color-accent-light);
+  color: #fff;
+  outline: 2px solid var(--color-accent-light);
+}
+
+main {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  transition: border-color var(--transition);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--color-accent-light);
+  outline: none;
+}
+
+button, .btn {
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  background: var(--color-accent-light);
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+  box-shadow: 0 1px 4px rgba(37,99,235,0.08);
+}
+
+button:hover, .btn:hover {
+  background: var(--color-accent-dark);
+}
+
+button:disabled, .btn:disabled {
+  background: #b0b0b0;
+  cursor: not-allowed;
+}
+
+#notification {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-accent-light);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  z-index: 3000;
+  font-size: 1.1rem;
+  opacity: 0.98;
+  display: none;
+}
+
+#notification:not(.hidden) {
+  display: block;
+}
+
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  border: 3px solid #fff;
+  border-top: 3px solid var(--color-accent-dark);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  position: absolute;
+  right: -2em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#badgesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f4f6fa;
+  border-radius: var(--border-radius);
+  padding: 1rem 1.2rem;
+  min-width: 110px;
+  min-height: 110px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: background var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+  position: relative;
+}
+
+.badge.locked {
+  background: #e0e0e0;
+  color: var(--color-badge-locked);
+  opacity: 0.7;
+}
+
+.badge .badgeIcon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.badge .badgeName {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.badge .badgeDesc {
+  font-size: 0.95rem;
+  color: #555;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  main {
+    max-width: 98vw;
+    padding: 0.5rem;
+  }
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.7rem 1rem;
+  }
+  #badgesContainer {
+    gap: 0.5rem;
+  }
+  .badge {
+    min-width: 90px;
+    min-height: 90px;
+    padding: 0.7rem 0.7rem;
+  }
+}
+
+/* Dark Theme Support */
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: var(--color-bg-dark);
+    color: var(--color-text-dark);
+  }
+  main {
+    background: #232b3a;
+    color: var(--color-text-dark);
+  }
+  header {
+    background: var(--color-accent-dark);
+    color: #fff;
+  }
+  header nav button {
+    background: #232b3a;
+    color: var(--color-accent-dark);
+  }
+  header nav button.active, header nav button:focus {
+    background: var(--color-accent-dark);
+    color: #fff;
+  }
+  input, select, textarea {
+    background: #232b3a;
+    color: var(--color-text-dark);
+    border: 1px solid #444;
+  }
+  .badge {
+    background: #232b3a;
+    color: var(--color-text-dark);
+  }
+  .badge.locked {
+    background: #222;
+    color: var(--color-badge-locked);
+  }
+}

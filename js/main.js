@@ -121,6 +121,7 @@ function setupEventListeners() {
     // Copy improved prompt button
     const copyBtn = document.getElementById('copyImprovedBtn');
     if (copyBtn) {
+        copyBtn.classList.add('btn');
         copyBtn.addEventListener('click', () => {
             const improvedPrompt = document.getElementById('improvedPromptDisplay').textContent;
             UIRenderer.copyToClipboard(improvedPrompt);
@@ -130,6 +131,7 @@ function setupEventListeners() {
     // Download improved prompt button
     const downloadBtn = document.getElementById('downloadImprovedBtn');
     if (downloadBtn) {
+        downloadBtn.classList.add('btn');
         downloadBtn.addEventListener('click', () => {
             const improvedPrompt = document.getElementById('improvedPromptDisplay').textContent;
             UIRenderer.downloadFile(improvedPrompt, 'improved_prompt.txt');
@@ -139,17 +141,20 @@ function setupEventListeners() {
     // New prompt button
     const newPromptBtn = document.getElementById('newPromptBtn');
     if (newPromptBtn) {
+        newPromptBtn.classList.add('btn');
         newPromptBtn.addEventListener('click', () => UIRenderer.showSection('homeSection'));
     }
 
     // Back buttons
     const backFromLeaderboard = document.getElementById('backFromLeaderboard');
     if (backFromLeaderboard) {
+        backFromLeaderboard.classList.add('btn');
         backFromLeaderboard.addEventListener('click', () => UIRenderer.showSection('reviewSection'));
     }
 
     const backFromAchievements = document.getElementById('backFromAchievements');
     if (backFromAchievements) {
+        backFromAchievements.classList.add('btn');
         backFromAchievements.addEventListener('click', () => UIRenderer.showSection('reviewSection'));
     }
 
@@ -157,6 +162,8 @@ function setupEventListeners() {
     const filterGlobal = document.getElementById('filterGlobal');
     const filterRegional = document.getElementById('filterRegional');
     if (filterGlobal && filterRegional) {
+        filterGlobal.classList.add('btn');
+        filterRegional.classList.add('btn');
         filterGlobal.addEventListener('click', () => {
             filterGlobal.classList.add('active');
             filterRegional.classList.remove('active');
@@ -172,6 +179,7 @@ function setupEventListeners() {
     // Add for toAchievementsBtn if it exists
     const toAchievementsBtn = document.getElementById('toAchievementsBtn');
     if (toAchievementsBtn) {
+        toAchievementsBtn.classList.add('btn');
         toAchievementsBtn.addEventListener('click', () => {
             updateAchievements();
             UIRenderer.showSection('achievementsSection');
@@ -226,6 +234,7 @@ function showPromptHistoryModal() {
     let closeBtn = document.createElement('button');
     closeBtn.textContent = 'Close';
     closeBtn.style.float = 'right';
+    closeBtn.className = 'btn';
     closeBtn.onclick = () => document.body.removeChild(modal);
     content.appendChild(closeBtn);
 
@@ -243,6 +252,7 @@ function showPromptHistoryModal() {
         btn.textContent = `${new Date(item.timestamp).toLocaleString()} | ${item.type} | ${item.prompt.slice(0, 40)}...`;
         btn.style.width = '100%';
         btn.style.textAlign = 'left';
+        btn.className = 'btn';
         btn.onclick = () => {
             // Prefill form
             document.getElementById('promptInput').value = item.prompt;
@@ -263,13 +273,14 @@ function showPromptHistoryModal() {
 // Add button to open prompt history
 window.addEventListener('DOMContentLoaded', function() {
     // ... existing code ...
-    const form = document.getElementById('prompt-form');
+    const form = document.getElementById('prompt-form') || document.getElementById('promptForm');
     if (form && !document.getElementById('showPromptHistoryBtn')) {
         let btn = document.createElement('button');
         btn.type = 'button';
         btn.id = 'showPromptHistoryBtn';
         btn.textContent = 'Show Previous Prompts';
         btn.style.marginBottom = '1rem';
+        btn.className = 'btn';
         btn.onclick = showPromptHistoryModal;
         form.insertBefore(btn, form.firstChild);
     }
