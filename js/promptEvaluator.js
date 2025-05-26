@@ -2,7 +2,7 @@
 const PromptEvaluator = {
     // Configuration
     config: {
-        useSimulation: true, // Set to false to use real API
+        useSimulation: false, // Set to false to use real API
         apiKey: null,
         apiEndpoint: 'https://api.openai.com/v1/chat/completions',
         model: 'gpt-4-0613'
