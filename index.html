@@ -46,7 +46,9 @@
                     </select>
                 </div>
 
-                <button type="submit" id="submitBtn">Review Prompt</button>
+                <div class="button-group">
+                  <button type="submit" id="submitBtn">Review Prompt</button>
+                </div>
             </form>
         </section>
 
@@ -60,7 +62,7 @@
             <div id="improvedPromptDisplay"></div>
             <button id="copyImprovedBtn">Copy Improved Prompt</button>
             <button id="downloadImprovedBtn">Download Improved Prompt</button>
-            <div class="reviewActions">
+            <div class="reviewActions button-group">
                 <button id="newPromptBtn">New Prompt</button>
                 <button id="toLeaderboardBtn">View Leaderboard</button>
                 <button id="toAchievementsBtn">My Achievements</button>
@@ -70,7 +72,7 @@
         <!-- Leaderboard Section -->
         <section id="leaderboardSection" style="display:none;">
             <h2>Leaderboard</h2>
-            <div id="leaderboardFilters">
+            <div id="leaderboardFilters" class="button-group">
                 <button id="filterGlobal" class="active">Global</button>
                 <button id="filterRegional">My Continent</button>
             </div>

@@ -208,6 +208,47 @@ button:disabled, .btn:disabled {
   text-align: center;
 }
 
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+form button[type="submit"] {
+  align-self: flex-end;
+  margin-top: 1.5rem;
+}
+
+form label, form input, form select, form textarea {
+  margin-bottom: 1rem;
+}
+
+.reviewActions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+#leaderboardFilters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+#userInfoInputs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+#userInfoInputs input, #userInfoInputs select {
+  flex: 1 1 150px;
+  min-width: 120px;
+}
+
 @media (max-width: 767px) {
   main {
     max-width: 98vw;
