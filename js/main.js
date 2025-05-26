@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('PRT_Model', selectedModel);
             model = selectedModel;
 
-            // Only ask for API key if model is OpenAI or DeepSeek (or other that requires key)
-            let needsApiKey = ['openai', 'deepseek', 'other'].includes(model);
+            // Only ask for API key if model is OpenAI, DeepSeek, Mistral, or Other that requires key
+            let needsApiKey = ['openai', 'deepseek', 'mistral', 'other'].includes(model);
             if (needsApiKey) {
                 apiKey = window.prompt(
                     `Enter your API key for ${model.toUpperCase()} (leave blank for simulation mode):` +
