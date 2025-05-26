@@ -44,11 +44,34 @@ const PromptEvaluator = {
         }
     },
 
-    // Initialize with API key if provided
-    init(apiKey = null) {
+    // Initialize with API key and model if provided
+    init(apiKey = null, model = null) {
+        if (model) {
+            this.config.modelType = model;
+            // Set default API endpoint/model for each type
+            if (model === 'openai') {
+                this.config.apiEndpoint = 'https://api.openai.com/v1/chat/completions';
+                this.config.model = 'gpt-4-0613';
+            } else if (model === 'llama') {
+                this.config.apiEndpoint = 'http://localhost:8000/v1/chat/completions'; // Example local endpoint
+                this.config.model = 'llama-2-70b-chat';
+            } else if (model === 'deepseek') {
+                this.config.apiEndpoint = 'https://api.deepseek.com/v1/chat/completions';
+                this.config.model = 'deepseek-chat';
+            } else if (model === 'mistral') {
+                this.config.apiEndpoint = 'https://api.mistral.ai/v1/chat/completions';
+                this.config.model = 'mistral-large';
+            } else {
+                this.config.apiEndpoint = '';
+                this.config.model = '';
+            }
+        }
         if (apiKey) {
             this.config.useSimulation = false;
             this.config.apiKey = apiKey;
+        } else {
+            this.config.useSimulation = true;
+            this.config.apiKey = null;
         }
     },
 

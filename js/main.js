@@ -13,22 +13,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function askForApiKey(force = false) {
         let apiKey = getStoredApiKey();
-        if (!apiKey || force) {
-            apiKey = window.prompt(
-                'Enter your OpenAI API key to enable real prompt reviews. Leave blank to use simulation mode.\n\n' +
-                'WARNING: Your key is stored in your browser localStorage. Do not use a sensitive or production key.'
-            );
-            if (apiKey && apiKey.trim().length > 0) {
-                setStoredApiKey(apiKey.trim());
-                PromptEvaluator.init(apiKey.trim());
-                UIRenderer.showNotification('OpenAI API key set. Real reviews enabled.', 3000);
+        let model = localStorage.getItem('PRT_Model') || 'openai';
+        if (!apiKey || force || model !== localStorage.getItem('PRT_Model')) {
+            // Ask for model selection first
+            const modelOptions = [
+                { value: 'openai', label: 'OpenAI (GPT-4, GPT-3.5, etc.)' },
+                { value: 'llama', label: 'Llama (Meta AI, local/hosted)' },
+                { value: 'deepseek', label: 'DeepSeek' },
+                { value: 'mistral', label: 'Mistral' },
+                { value: 'other', label: 'Other/Custom' }
+            ];
+            let modelPrompt = 'Select the AI model you want to use:\n';
+            modelOptions.forEach((opt, idx) => {
+                modelPrompt += `${idx + 1}. ${opt.label}\n`;
+            });
+            modelPrompt += '\nEnter the number of your choice:';
+            let modelChoice = window.prompt(modelPrompt, '1');
+            let selectedModel = modelOptions[parseInt(modelChoice, 10) - 1]?.value || 'openai';
+            localStorage.setItem('PRT_Model', selectedModel);
+            model = selectedModel;
+
+            // Only ask for API key if model is OpenAI or DeepSeek (or other that requires key)
+            let needsApiKey = ['openai', 'deepseek', 'other'].includes(model);
+            if (needsApiKey) {
+                apiKey = window.prompt(
+                    `Enter your API key for ${model.toUpperCase()} (leave blank for simulation mode):` +
+                    '\nWARNING: Your key is stored in your browser localStorage. Do not use a sensitive or production key.'
+                );
+                if (apiKey && apiKey.trim().length > 0) {
+                    setStoredApiKey(apiKey.trim());
+                    PromptEvaluator.init(apiKey.trim(), model);
+                    UIRenderer.showNotification(`${model.toUpperCase()} API key set. Real reviews enabled.`, 3000);
+                } else {
+                    clearStoredApiKey();
+                    PromptEvaluator.init(null, model); // simulation mode
+                    UIRenderer.showNotification('Simulation mode enabled. No API key set.', 3000);
+                }
             } else {
                 clearStoredApiKey();
-                PromptEvaluator.init(); // simulation mode
-                UIRenderer.showNotification('Simulation mode enabled. No API key set.', 3000);
+                PromptEvaluator.init(null, model); // simulation mode for Llama/Mistral
+                UIRenderer.showNotification(`${model.toUpperCase()} selected. Simulation mode enabled.`, 3000);
             }
         } else {
-            PromptEvaluator.init(apiKey);
+            PromptEvaluator.init(apiKey, model);
         }
     }
 
