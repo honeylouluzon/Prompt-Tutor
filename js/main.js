@@ -33,12 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Add a button to nav for re-entering/clearing API key
-    const nav = document.querySelector('header nav');
+    const nav = document.querySelector('header nav.nav-group');
     if (nav && !document.getElementById('setApiKeyBtn')) {
         const btn = document.createElement('button');
         btn.id = 'setApiKeyBtn';
         btn.textContent = 'Set/Clear OpenAI API Key';
-        btn.style.marginLeft = '1rem';
+        btn.className = 'api-key-btn btn';
         btn.onclick = () => {
             clearStoredApiKey();
             askForApiKey(true);

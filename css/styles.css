@@ -64,6 +64,16 @@ header nav button.active, header nav button:focus {
   outline: 2px solid var(--color-accent-light);
 }
 
+.nav-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.api-key-btn {
+  margin-left: 1rem;
+}
+
 main {
   max-width: 700px;
   margin: 2rem auto;
@@ -266,6 +276,10 @@ form label, form input, form select, form textarea {
     min-width: 90px;
     min-height: 90px;
     padding: 0.7rem 0.7rem;
+  }
+  .nav-group {
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
   }
 }
 
