@@ -9,6 +9,8 @@ Prompt Tutor now supports selecting different AI models for prompt evaluation:
 - **Mistral**
 - **Other/Custom**
 
+**[Live Preview](https://honeylouluzon.github.io/Prompt-Tutor/)**
+
 ### How it Works
 - On first load or when changing model, users are prompted to select the AI model.
 - Only models that require an API key (OpenAI, DeepSeek, Other) will prompt for a key. Llama and Mistral default to simulation mode unless further integration is added.
