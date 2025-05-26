@@ -1,4 +1,3 @@
-
 # UX/UI Design Template for Vibe Coding Tools
 
 **Version:** 1.0  
@@ -171,3 +170,52 @@
   "customThemes": true
 }
 ```
+
+---
+
+## 11. BUTTON PLACEMENT & SPACING GUIDELINES
+
+- **Button Alignment:**
+  - Primary action buttons (e.g., Submit, Save) should be right-aligned at the bottom of forms or sections.
+  - Secondary actions (e.g., Cancel, Back) should be left-aligned or placed to the left of primary actions.
+  - In toolbars or navigation, buttons should be evenly spaced and vertically centered.
+- **Spacing:**
+  - Use at least `1rem` (16px) margin between buttons and other elements.
+  - For stacked buttons (vertical), use `0.5rem` (8px) vertical spacing.
+  - For inline buttons (horizontal), use `0.5rem` (8px) horizontal spacing.
+- **Button Groups:**
+  - Group related buttons using a flex container with `gap: 0.5rem`.
+  - Use `.button-group` class for button containers to ensure consistent spacing.
+- **Form Layout:**
+  - Inputs and labels should have `1rem` vertical spacing.
+  - The submit button should be separated from the last input by at least `1.5rem`.
+- **Accessibility:**
+  - Ensure buttons are large enough for touch (min 44x44px).
+  - Maintain clear focus outlines and sufficient contrast.
+
+**Example CSS:**
+```css
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+form button[type="submit"] {
+  align-self: flex-end;
+  margin-top: 1.5rem;
+}
+form label, form input, form select, form textarea {
+  margin-bottom: 1rem;
+}
+```
+
+**Example HTML:**
+```html
+<div class="button-group">
+  <button type="button">Cancel</button>
+  <button type="submit">Save</button>
+</div>
+```
+
+**Instruction:**
+- Apply these guidelines to all forms, navigation bars, and action areas for consistent, professional UI/UX.
