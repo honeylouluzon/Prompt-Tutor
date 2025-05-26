@@ -219,3 +219,61 @@ form label, form input, form select, form textarea {
 
 **Instruction:**
 - Apply these guidelines to all forms, navigation bars, and action areas for consistent, professional UI/UX.
+
+---
+
+## 12. NAVIGATION & HEADER BUTTON LAYOUT
+
+- **Header Layout:**
+  - Use a flex container for the header with `justify-content: space-between` for title and navigation.
+  - Navigation buttons (Home, Leaderboard, Achievements, Set/Clear API Key) should be grouped in a `.nav-group` flex container.
+  - All nav buttons should be vertically centered and have at least `0.5rem` horizontal spacing.
+  - On mobile, stack nav buttons vertically or allow them to wrap.
+- **Set/Clear API Key Button:**
+  - Place this button at the end of the navigation group, separated by at least `1rem` from the other nav buttons.
+  - Use `.nav-group .api-key-btn` for custom styling if needed.
+- **Accessibility:**
+  - All nav buttons must be keyboard accessible and have clear focus outlines.
+
+**Example HTML:**
+```html
+<header>
+  <h1>Prompt Review Tool</h1>
+  <nav class="nav-group">
+    <button id="navHome">Home</button>
+    <button id="navLeaderboard">Leaderboard</button>
+    <button id="navAchievements">Achievements</button>
+    <button id="setApiKeyBtn" class="api-key-btn">Set/Clear OpenAI API Key</button>
+  </nav>
+</header>
+```
+
+**Example CSS:**
+```css
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.api-key-btn {
+  margin-left: 1rem;
+}
+@media (max-width: 767px) {
+  .nav-group {
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+```
+
+**Instruction:**
+- Apply these layout and alignment rules to the header and navigation in your HTML and CSS for a clean, professional, and accessible navigation bar.
