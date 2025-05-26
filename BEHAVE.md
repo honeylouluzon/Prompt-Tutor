@@ -12,5 +12,5 @@ Step 2. Write a prompt in the github copilot instructing to perform the BEHAVE.m
 **STEP 2**: Learn Omni-Guide.md and apply it to your implementation.Consider also UI-UX.md when adding UI.
 **STEP 3**: Execute the Instructions under the Task #<ChosenTask> of TASK.md without altering the existing code not unless to change is mentioned in the task to perform. Do not perform unrelated action from the task. Ask clarification if don't know exactly what to do for you not to create undesired result. 
 **STEP 4**: Update the status of Task #<ChosenTask> in TASK.md from [PROCESSING] TO [DONE]  
-**STEP 5**: Run git add . && git commit with -m as the changes or action taken or the Task #<ChosenTask> of TASK.md instruction && git push to sync the Changes to the Github Repository.
-**STEP 6**: If new feature is created, updated, or ommited, document it in README.md.
+**STEP 5**: If new feature is created, updated, or ommited, document it in README.md.  
+**STEP 6**: Run git add . && git commit with -m as the changes or action taken or the Task #<ChosenTask> of TASK.md instruction && git push to sync the Changes to the Github Repository.
