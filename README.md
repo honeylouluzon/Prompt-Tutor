@@ -9,7 +9,9 @@ Prompt Tutor now supports selecting different AI models for prompt evaluation:
 - **Mistral**
 - **Other/Custom**
 
-**[Live Preview](https://honeylouluzon.github.io/Prompt-Tutor/)**
+**[Live Preview](https://htmlpreview.github.io/?https://github.com/honeylouluzon/Prompt-Tutor/blob/cf9f171735443bc3f408811525f4b16149b277b3/index.html)**
+
+**[Github Page](https://honeylouluzon.github.io/Prompt-Tutor/)**
 
 ### How it Works
 - On first load or when changing model, users are prompted to select the AI model.
