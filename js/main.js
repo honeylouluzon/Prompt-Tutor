@@ -135,6 +135,9 @@ function setupEventListeners() {
         updateAchievements();
         UIRenderer.showSection('achievementsSection');
     });
+    document.getElementById('navTutorials').addEventListener('click', () => {
+  showSection('tutorialsSection');
+    });
 
     // Form submission
     const form = document.getElementById('promptForm');
