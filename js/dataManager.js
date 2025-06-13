@@ -188,6 +188,18 @@ const DataManager = {
         const graph = localStorage.getItem(this.STORAGE_KEYS.KNOWLEDGE_GRAPH);
         return graph ? JSON.parse(graph) : { nodes: [], edges: [] };
     },
+    
+    saveUnlockedAchievements(achievements) {
+        localStorage.setItem(
+            this.STORAGE_KEYS.ACHIEVEMENTS,
+            JSON.stringify(achievements)
+        );
+    },
+
+    loadUnlockedAchievements() {
+        const achievements = localStorage.getItem(this.STORAGE_KEYS.ACHIEVEMENTS);
+        return achievements ? JSON.parse(achievements) : [];
+    },
 
     // Reset Methods
     resetAll() {
