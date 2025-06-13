@@ -319,3 +319,31 @@ form label, form input, form select, form textarea {
     color: var(--color-badge-locked);
   }
 }
+
+/* Tutorials Section */
+#tutorialsSection {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: var(--border-radius);
+}
+
+#tutorialTopics {
+    list-style: none;
+    padding: 0;
+}
+
+#tutorialTopics li {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background: var(--color-bg-dark);
+    color: var(--color-text-dark);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background var(--transition);
+}
+
+#tutorialTopics li:hover {
+    background: var(--color-accent-light);
+    color: #fff;
+}
+
