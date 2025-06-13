@@ -170,32 +170,23 @@ const DataManager = {
     },
 
     // Knowledge Graph Methods
-    loadKnowledgeGraph() {
-        try {
-            return JSON.parse(localStorage.getItem(this.STORAGE_KEYS.KNOWLEDGE_GRAPH)) || {
-                topics: {},
-                entities: {},
-                styles: {},
-                associations: []
-            };
-        } catch (error) {
-            console.error('Error loading knowledge graph:', error);
-            return {
-                topics: {},
-                entities: {},
-                styles: {},
-                associations: []
-            };
-        }
+    updateKnowledgeGraph() {
+        const graph = this.loadKnowledgeGraph();
+        graph.nodes.push(...evaluation.graphData.nodes);
+        graph.edges.push(...evaluation.graphData.edges);
+        this.saveKnowledgeGraph(graph);
     },
 
     saveKnowledgeGraph(graph) {
-        try {
-            localStorage.setItem(this.STORAGE_KEYS.KNOWLEDGE_GRAPH, JSON.stringify(graph));
-        } catch (error) {
-            console.error('Error saving knowledge graph:', error);
-            throw error;
-        }
+        localStorage.setItem(
+            this.STORAGE_KEYS.KNOWLEDGE_GRAPH,
+            JSON.stringify(graph)
+        );
+    },
+
+    loadKnowledgeGraph() {
+        const graph = localStorage.getItem(this.STORAGE_KEYS.KNOWLEDGE_GRAPH);
+        return graph ? JSON.parse(graph) : { nodes: [], edges: [] };
     },
 
     // Reset Methods
