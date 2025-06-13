@@ -574,3 +574,44 @@ form label, form input, form select, form textarea {
     stroke-width: 3px;
 }
 
+
+/* Add these styles at the end of css/styles.css */
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Dark theme support for modal */
+@media (prefers-color-scheme: dark) {
+    .modal-content {
+        background: var(--color-bg-dark);
+        color: var(--color-text-dark);
+    }
+}
+
