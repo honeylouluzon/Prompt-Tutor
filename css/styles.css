@@ -416,3 +416,105 @@ form label, form input, form select, form textarea {
     color: #007bff;
 }
 
+/* Add to css/styles.css */
+
+/* Tutorial Styles */
+.module-sections {
+    margin: 2rem 0;
+}
+
+.section {
+    background: #f8f9fa;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.exercise {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.exercise-input {
+    width: 100%;
+    min-height: 100px;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    font-family: inherit;
+}
+
+.exercise-feedback {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+.feedback-content.success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.feedback-content.needs-improvement {
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+}
+
+.module-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.completion-badge {
+    background: var(--color-accent-light);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.module-progress {
+    height: 4px;
+    background: #e9ecef;
+    border-radius: 2px;
+    margin-top: 0.5rem;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--color-accent-light);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.available {
+    cursor: pointer;
+}
+
+.available:hover {
+    background: var(--color-accent-light);
+    color: white;
+}
+
