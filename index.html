@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompt Review Tool</title>
+    <title>Prompt Tutor</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
-        <h1>Prompt Review Tool</h1>
+        <h1>Prompt Tutor</h1>
         <nav class="nav-group">
             <button id="navHome">Home</button>
             <button id="navLeaderboard">Leaderboard</button>
             <button id="navAchievements">Achievements</button>
-            <button id="setApiKeyBtn" class="api-key-btn">Set/Clear OpenAI API Key</button>
+            <button id="navTutorials">Tutorials</button>
+            <button id="setApiKeyBtn" class="api-key-btn">Set/Clear API Key</button>
         </nav>
     </header>
 
@@ -23,14 +24,14 @@
             <form id="promptForm">
                 <label for="promptText">Enter your prompt:</label>
                 <textarea id="promptText" required placeholder="Enter your prompt here..."></textarea>
-                
+
                 <label for="promptType">Evaluation type:</label>
                 <select id="promptType" required>
                     <option value="" disabled selected>Select a use case</option>
                     <option value="Chatbot">Chatbot</option>
                     <option value="Coding">Coding</option>
                     <option value="Image">Image Generation</option>
-                    <option value="Research">Deep Research</option>
+                    <option value="Research">Research</option>
                 </select>
 
                 <div id="userInfoInputs">
@@ -48,9 +49,23 @@
                 </div>
 
                 <div class="button-group">
-                  <button type="submit" id="submitBtn">Review Prompt</button>
+                    <button type="submit" id="submitBtn">Review Prompt</button>
                 </div>
             </form>
+        </section>
+
+        <!-- Tutorials Section -->
+        <section id="tutorialsSection" style="display:none;">
+            <h2>OpenAI Prompting Guide</h2>
+            <ul id="tutorialTopics">
+                <li>Introduction to Prompting</li>
+                <li>Fundamentals of Effective Prompts</li>
+                <li>Advanced Prompting Techniques</li>
+                <li>Use Case Tutorials</li>
+                <li>Interactive Practice</li>
+                <li>Mastery and Certification</li>
+            </ul>
+            <button id="startTutorialBtn">Start Tutorial</button>
         </section>
 
         <!-- Review Section -->
@@ -119,6 +134,7 @@
     <script src="js/promptEvaluator.js"></script>
     <script src="js/badgeManager.js"></script>
     <script src="js/knowledgeGraph.js"></script>
+    <script src="js/tutorialManager.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
