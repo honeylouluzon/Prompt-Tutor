@@ -33,6 +33,19 @@
                     <option value="Image">Image Generation</option>
                     <option value="Research">Research</option>
                 </select>
+                
+                <!-- Add after promptType select -->
+                <label for="modelType">AI Model:</label>
+                <select id="modelType" required>
+                    <option value="" disabled selected>Select AI Model</option>
+                    <option value="openai">OpenAI (GPT-4/3.5)</option>
+                    <option value="claude">Claude</option>
+                    <option value="llama">Llama</option>
+                    <option value="deepseek">DeepSeek</option>
+                    <option value="mistral">Mistral</option>
+                    <option value="gemini">Gemini</option>
+                    <option value="perplexity">Perplexity</option>
+                </select>
 
                 <div id="userInfoInputs">
                     <input type="text" id="username" placeholder="Username" required>
