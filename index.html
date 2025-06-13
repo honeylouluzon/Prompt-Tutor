@@ -34,18 +34,21 @@
                     <option value="Research">Research</option>
                 </select>
                 
-                <!-- Add after promptType select -->
-                <label for="modelType">AI Model:</label>
-                <select id="modelType" required>
-                    <option value="" disabled selected>Select AI Model</option>
-                    <option value="openai">OpenAI (GPT-4/3.5)</option>
-                    <option value="claude">Claude</option>
-                    <option value="llama">Llama</option>
-                    <option value="deepseek">DeepSeek</option>
-                    <option value="mistral">Mistral</option>
-                    <option value="gemini">Gemini</option>
-                    <option value="perplexity">Perplexity</option>
-                </select>
+                <!-- Add model selection to form -->
+                <div class="model-selection">
+                    <label for="modelType">AI Model:</label>
+                    <select id="modelType" required>
+                        <option value="" disabled selected>Select AI Model</option>
+                        <option value="openai">OpenAI (GPT-4/3.5)</option>
+                        <option value="claude">Claude</option>
+                        <option value="llama">Llama</option>
+                        <option value="deepseek">DeepSeek</option>
+                        <option value="mistral">Mistral</option>
+                        <option value="gemini">Gemini</option>
+                        <option value="perplexity">Perplexity</option>
+                    </select>
+                    <button id="configureModelBtn">Configure Model</button>
+                </div>
 
                 <div id="userInfoInputs">
                     <input type="text" id="username" placeholder="Username" required>
@@ -169,6 +172,11 @@
     <script src="js/badgeManager.js"></script>
     <script src="js/knowledgeGraph.js"></script>
     <script src="js/tutorialManager.js"></script>
+    <!-- Add these script tags before main.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/modelManager.js"></script>
+    <script src="js/evaluationCriteria.js"></script>
+    <script src="js/graphVisualizer.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
