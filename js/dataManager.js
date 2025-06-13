@@ -1,14 +1,24 @@
 // Data Manager Module
 const DataManager = {
     // Storage keys
+    
     STORAGE_KEYS: {
-        USER_PROFILE: 'PRT_UserProfile',
-        HISTORY: 'PRT_History',
-        LEADERBOARD: 'PRT_Leaderboard',
-        BADGES: 'PRT_Badges',
-        KNOWLEDGE_GRAPH: 'PRT_KnowledgeGraph',
-        CSV: 'PRT_CSV'
+        PROFILE: 'promptTutor_profile',
+        HISTORY: 'promptTutor_history',
+        LEADERBOARD: 'promptTutor_leaderboard',
+        BADGES: 'promptTutor_badges',
+        ACHIEVEMENTS: 'promptTutor_achievements',
+        KNOWLEDGE_GRAPH: 'promptTutor_graph',
+        API_KEYS: 'promptTutor_apiKeys'
     },
+
+    saveEvaluation(evaluation) {
+        const history = this.loadHistory();
+        history.push({
+            ...evaluation,
+            timestamp: new Date().toISOString()
+        });
+        localStorage.setItem(this.STORAGE_KEYS.HISTORY, JSON.stringify(history));
 
     // Initialize storage if empty
     init() {
