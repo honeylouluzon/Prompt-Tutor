@@ -19,7 +19,7 @@ const DataManager = {
             timestamp: new Date().toISOString()
         });
         localStorage.setItem(this.STORAGE_KEYS.HISTORY, JSON.stringify(history));
-
+        
     // Initialize storage if empty
     init() {
         Object.values(this.STORAGE_KEYS).forEach(key => {
