@@ -1,342 +1,180 @@
-// Prompt Evaluator Module
+// js/promptEvaluator.js
+
 const PromptEvaluator = {
-    // Configuration
     config: {
-        useSimulation: false, // Set to false to use real API
-        apiKey: null,
-        apiEndpoint: 'https://api.openai.com/v1/chat/completions',
-        model: 'gpt-4-0613'
+        apiEndpoint: '',
+        apiKey: '',
+        model: ''
     },
 
-    // Prompt type specific criteria weights
     criteriaWeights: {
         Chatbot: {
-            Clarity: 2.0,
-            Specificity: 1.5,
-            Structure: 1.0,
-            Completeness: 1.5,
-            'Complexity Management': 1.0,
-            'Instruction Emphasis': 1.0
+            Clarity: 0.2,
+            Specificity: 0.2,
+            Structure: 0.2,
+            Completeness: 0.2,
+            ComplexityManagement: 0.1,
+            InstructionEmphasis: 0.1
         },
         Coding: {
-            Clarity: 1.5,
-            Specificity: 2.0,
-            Structure: 1.5,
-            Completeness: 2.0,
-            'Complexity Management': 1.5,
-            'Correctness & Constraints': 2.0
+            Clarity: 0.2,
+            Specificity: 0.2,
+            Structure: 0.2,
+            Completeness: 0.2,
+            CorrectnessConstraints: 0.2
         },
         Image: {
-            Clarity: 1.5,
-            Specificity: 2.0,
-            Structure: 1.0,
-            Completeness: 1.5,
-            'Complexity Management': 1.0,
-            'Originality/Creativity': 2.0
+            Clarity: 0.2,
+            Specificity: 0.3,
+            Structure: 0.1,
+            Creativity: 0.3,
+            ComplexityManagement: 0.1
         },
         Research: {
-            Clarity: 1.5,
-            Specificity: 1.5,
-            Structure: 2.0,
-            Completeness: 2.0,
-            'Complexity Management': 2.0,
-            'Use of Best Practices': 1.5
+            Clarity: 0.2,
+            Specificity: 0.2,
+            Structure: 0.2,
+            Completeness: 0.2,
+            BestPractices: 0.2
         }
     },
 
-    // Initialize with API key and model if provided
-    init(apiKey = null, model = null) {
-        if (model) {
-            this.config.modelType = model;
-            // Set default API endpoint/model for each type
-            if (model === 'openai') {
-                this.config.apiEndpoint = 'https://api.openai.com/v1/chat/completions';
-                this.config.model = 'gpt-4-0613';
-            } else if (model === 'llama') {
-                this.config.apiEndpoint = 'http://localhost:8000/v1/chat/completions'; // Example local endpoint
-                this.config.model = 'llama-2-70b-chat';
-            } else if (model === 'deepseek') {
-                this.config.apiEndpoint = 'https://api.deepseek.com/v1/chat/completions';
-                this.config.model = 'deepseek-chat';
-            } else if (model === 'mistral') {
-                this.config.apiEndpoint = 'https://api.mistral.ai/v1/chat/completions';
-                this.config.model = 'mistral-large';
-            } else {
-                this.config.apiEndpoint = '';
-                this.config.model = '';
-            }
-        }
-        if (apiKey) {
-            this.config.useSimulation = false;
-            this.config.apiKey = apiKey;
-        } else {
-            this.config.useSimulation = true;
-            this.config.apiKey = null;
-        }
-    },
-
-    // Main evaluation function
-    async reviewPrompt(prompt, type) {
-        if (!prompt || !type) {
-            throw new Error('Prompt and type are required');
+    async evaluate(prompt, type, modelType) {
+        // Get model configuration
+        const modelConfig = ModelManager.modelConfigs[modelType];
+        if (!modelConfig) {
+            throw new Error(`Invalid model type: ${modelType}`);
         }
 
-        if (this.config.useSimulation) {
+        // If in simulation mode, use local evaluation
+        if (ModelManager.isSimulationMode(modelType)) {
             return this.simulateEvaluation(prompt, type);
-        } else {
-            return this.callGPTAPI(prompt, type);
         }
+
+        // Get API key for the selected model
+        const apiKey = await ModelManager.getApiKey(modelType);
+        if (!apiKey) {
+            throw new Error(`API key not found for model: ${modelType}`);
+        }
+
+        // Update config with model-specific settings
+        this.config.apiEndpoint = modelConfig.apiEndpoint;
+        this.config.apiKey = apiKey;
+        this.config.model = modelConfig.models?.[0] || modelType;
+
+        return await this.performEvaluation(prompt, type);
     },
 
-    // Simulation mode for development/testing
-    simulateEvaluation(prompt, type) {
-        // Get criteria weights for this prompt type
-        const weights = this.criteriaWeights[type] || this.criteriaWeights.Chatbot;
+    async performEvaluation(prompt, type) {
+        const criteria = EvaluationCriteria.criteria;
+        const result = await this.callAPI(prompt, type);
         
-        // Generate scores based on weights
-        const criteria = {};
-        let totalWeight = 0;
-        let weightedSum = 0;
+        // Process the result and calculate scores
+        const scores = {
+            core: {},
+            useCase: {}
+        };
 
-        for (const [criterion, weight] of Object.entries(weights)) {
-            // Generate a score between 1-5
-            const score = Math.floor(Math.random() * 3) + 3; // Bias towards 3-5
-            criteria[criterion] = score;
-            
-            // Add to weighted sum
-            weightedSum += score * weight;
-            totalWeight += weight;
-        }
+        // Calculate core criteria scores
+        Object.keys(criteria.core).forEach(criterion => {
+            scores.core[criterion] = result.criteria[criterion] || 0;
+        });
 
-        // Calculate overall score (0-100)
-        const score = Math.round((weightedSum / totalWeight) * 20);
+        // Calculate use-case specific scores
+        const useCaseCriteria = criteria.useCase[type.toLowerCase()];
+        Object.keys(useCaseCriteria).forEach(criterion => {
+            scores.useCase[criterion] = result.criteria[criterion] || 0;
+        });
 
-        // Generate type-specific suggestions
-        const suggestions = this.generateTypeSpecificSuggestions(prompt, type, criteria);
+        // Generate knowledge graph data
+        const graphData = {
+            topics: result.topics || [],
+            entities: result.entities || [],
+            styles: result.styles || []
+        };
 
-        // Generate an improved version
-        const improvedPrompt = this.generateImprovedPrompt(prompt, type, criteria);
-
-        // Extract topics and entities
-        const { topics, entities, styles } = this.extractPromptFeatures(prompt, type);
+        // Update knowledge graph
+        this.updateKnowledgeGraph(graphData, prompt, type);
 
         return {
             prompt,
             type,
-            score,
-            criteria,
-            suggestions,
-            improvedPrompt,
-            topics,
-            entities,
-            styles
+            scores,
+            totalScore: result.score,
+            suggestions: result.suggestions,
+            improvedPrompt: result.improvedPrompt,
+            graphData
         };
     },
 
-    // Generate type-specific suggestions
-    generateTypeSpecificSuggestions(prompt, type, criteria) {
-        const suggestions = [];
-        
-        switch (type) {
-            case 'Chatbot':
-                if (criteria.Clarity < 4) {
-                    suggestions.push('Make your question more specific and clear about what you want to know.');
-                }
-                if (criteria.Specificity < 4) {
-                    suggestions.push('Add context about your target audience or desired response style.');
-                }
-                break;
-            
-            case 'Coding':
-                if (criteria['Correctness & Constraints'] < 4) {
-                    suggestions.push('Specify any constraints or requirements for the code solution.');
-                }
-                if (criteria.Completeness < 4) {
-                    suggestions.push('Include relevant code context or error messages if applicable.');
-                }
-                break;
-            
-            case 'Image':
-                if (criteria['Originality/Creativity'] < 4) {
-                    suggestions.push('Add more creative and specific details about the desired image style and mood.');
-                }
-                if (criteria.Specificity < 4) {
-                    suggestions.push('Include specific details about composition, lighting, and artistic style.');
-                }
-                break;
-            
-            case 'Research':
-                if (criteria.Structure < 4) {
-                    suggestions.push('Organize your research request into clear sections (context, questions, desired format).');
-                }
-                if (criteria['Complexity Management'] < 4) {
-                    suggestions.push('Break down complex research questions into smaller, manageable parts.');
-                }
-                break;
-        }
-
-        // Add general suggestions based on criteria scores
-        if (criteria.Clarity < 3) {
-            suggestions.push('Make your instructions clearer and more direct.');
-        }
-        if (criteria.Structure < 3) {
-            suggestions.push('Use formatting (bullet points, sections) to better organize your prompt.');
-        }
-        if (criteria['Complexity Management'] < 3) {
-            suggestions.push('Break down complex tasks into step-by-step instructions.');
-        }
-
-        return suggestions;
-    },
-
-    // Extract features from prompt
-    extractPromptFeatures(prompt, type) {
-        // Simple feature extraction for simulation mode
-        const topics = ['AI', 'prompting', type.toLowerCase()];
-        const entities = ['OpenAI', 'GPT'];
-        const styles = [];
-
-        // Check for common style features
-        if (prompt.includes('•') || prompt.includes('-')) {
-            styles.push('uses_bullet_points');
-        }
-        if (prompt.includes('Step') || prompt.includes('1.')) {
-            styles.push('uses_numbered_steps');
-        }
-        if (prompt.includes('You are') || prompt.includes('Act as')) {
-            styles.push('specifies_role');
-        }
-        if (prompt.includes('Example') || prompt.includes('For instance')) {
-            styles.push('provides_examples');
-        }
-
-        return { topics, entities, styles };
-    },
-
-    // Helper to extract the first JSON object from a string
-    extractFirstJson(str) {
-        const firstBrace = str.indexOf('{');
-        if (firstBrace === -1) throw new Error('No JSON object found in response');
-        let depth = 0;
-        for (let i = firstBrace; i < str.length; i++) {
-            if (str[i] === '{') depth++;
-            if (str[i] === '}') depth--;
-            if (depth === 0) {
-                const jsonString = str.slice(firstBrace, i + 1);
-                return JSON.parse(jsonString);
-            }
-        }
-        throw new Error('No complete JSON object found in response');
-    },
-
-    // Real API call to GPT-4.1
-    async callGPTAPI(prompt, type) {
-        if (!this.config.apiKey) {
-            throw new Error('API key not set');
-        }
-
-        const weights = this.criteriaWeights[type] || this.criteriaWeights.Chatbot;
-        const criteriaList = Object.keys(weights).join(', ');
-
-        const messages = [
-            {
-                role: 'system',
-                content: `You are an expert prompt analyst. You will receive a prompt and its intended use-case.
-                Analyze the prompt based on these criteria: ${criteriaList}
-                For each criterion, provide a rating from 1-5 and explain why.
-                Follow OpenAI's best practices in your critique.
-                Provide a score out of 10 and a revised improved prompt.
-                Also identify key topics, entities, and style features used.
-                Reply in JSON format with the following structure:
-                {
-                    "criteria": {
-                        "Criterion1": { "rating": 1-5, "explanation": "..." },
-                        "Criterion2": { "rating": 1-5, "explanation": "..." },
-                        ...
-                    },
-                    "score": 1-10,
-                    "suggestions": ["suggestion1", "suggestion2", ...],
-                    "improvedPrompt": "improved version",
-                    "topics": ["topic1", "topic2", ...],
-                    "entities": ["entity1", "entity2", ...],
-                    "styles": ["style1", "style2", ...]
-                }`
-            },
-            {
-                role: 'user',
-                content: `PROMPT TYPE: ${type}\nPROMPT: ${prompt}\n\nAnalyze this prompt as per instructions.`
-            }
-        ];
-
-        try {
-            const response = await fetch(this.config.apiEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.config.apiKey}`
-                },
-                body: JSON.stringify({
-                    model: this.config.model,
-                    messages,
-                    temperature: 0,
-                    max_tokens: 1000
-                })
+    updateKnowledgeGraph(graphData, prompt, type) {
+        // Add nodes for topics
+        graphData.topics.forEach(topic => {
+            GraphVisualizer.addNode({
+                id: `topic-${topic}`,
+                type: 'topic',
+                label: topic
             });
+        });
 
-            if (!response.ok) {
-                throw new Error(`API call failed: ${response.statusText}`);
-            }
+        // Add nodes for entities
+        graphData.entities.forEach(entity => {
+            GraphVisualizer.addNode({
+                id: `entity-${entity}`,
+                type: 'entity',
+                label: entity
+            });
+        });
 
-            const data = await response.json();
-            const content = data.choices[0].message.content;
-            const result = this.extractFirstJson(content);
+        // Add prompt node
+        const promptNode = {
+            id: `prompt-${Date.now()}`,
+            type: 'prompt',
+            label: prompt.substring(0, 30) + '...',
+            properties: { type, fullText: prompt }
+        };
+        GraphVisualizer.addNode(promptNode);
 
-            // Convert score to 0-100 scale
-            result.score = Math.round(result.score * 10);
+        // Add edges
+        graphData.topics.forEach(topic => {
+            GraphVisualizer.addEdge(promptNode.id, `topic-${topic}`, 'contains');
+        });
 
-            // Extract just the ratings from criteria
-            const criteria = {};
-            for (const [criterion, data] of Object.entries(result.criteria)) {
-                criteria[criterion] = data.rating;
-            }
-            result.criteria = criteria;
-
-            return {
-                prompt,
-                type,
-                ...result
-            };
-        } catch (error) {
-            console.error('API Error:', error);
-            throw error;
-        }
+        graphData.entities.forEach(entity => {
+            GraphVisualizer.addEdge(promptNode.id, `entity-${entity}`, 'mentions');
+        });
     },
 
-    // Helper to generate improved prompt in simulation mode
-    generateImprovedPrompt(prompt, type, criteria) {
-        const improvements = {
-            Chatbot: `You are a helpful AI assistant. Please respond to the following request in a clear and concise manner:
-
-${prompt}
-
-Please provide a detailed response that addresses all aspects of the request.`,
-            Coding: `You are an expert programmer. Please help with the following coding task:
-
-${prompt}
-
-Please provide a solution with clear explanations and comments.`,
-            Image: `You are an AI image generation expert. Please create an image based on the following description:
-
-${prompt}
-
-Please ensure the image matches the description in style, composition, and mood.`,
-            Research: `You are a research assistant. Please analyze the following topic:
-
-${prompt}
-
-Please provide a comprehensive analysis with relevant examples and citations.`
+    simulateEvaluation(prompt, type) {
+        // Simulate API response for models in simulation mode
+        const simulatedScore = Math.floor(Math.random() * 40) + 60; // Score between 60-100
+        const criteria = {
+            Clarity: Math.floor(Math.random() * 2) + 3,
+            Specificity: Math.floor(Math.random() * 2) + 3,
+            Structure: Math.floor(Math.random() * 2) + 3,
+            Completeness: Math.floor(Math.random() * 2) + 3,
+            ComplexityManagement: Math.floor(Math.random() * 2) + 3
         };
 
-        return improvements[type] || prompt;
+        return {
+            prompt,
+            type,
+            scores: {
+                core: criteria,
+                useCase: {}
+            },
+            totalScore: simulatedScore,
+            suggestions: [
+                "Consider adding more specific details",
+                "Try structuring the prompt with clear sections",
+                "Include examples where applicable"
+            ],
+            improvedPrompt: this.generateImprovedPrompt(prompt, type, criteria),
+            graphData: {
+                topics: ["simulation", type.toLowerCase()],
+                entities: ["prompt", "evaluation"],
+                styles: ["basic"]
+            }
+        };
     }
 };
