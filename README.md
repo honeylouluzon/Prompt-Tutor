@@ -39,28 +39,38 @@ Prompt Tutor supports a wide variety of AI models, enabling users to explore pro
 ---
 
 ### 2. Comprehensive Prompt Evaluation
-Evaluate and improve prompts with an in-depth scoring and feedback system:
-- **Supported Prompt Types:**
-  - Chatbot
-  - Coding
-  - Image Generation
-  - Research
-- **Criteria-Based Scoring:**
-  - **Core Criteria:**
-    - Clarity
-    - Specificity
-    - Structure
-    - Completeness
-    - Complexity Management
-  - **Use Case-Specific Criteria:**
-    - **Chatbot:** Instruction Emphasis
-    - **Coding:** Correctness & Constraints
-    - **Image Generation:** Originality/Creativity
-    - **Research:** Use of Best Practices
-- **Feedback & Suggestions:**
-  - Breakdown of scores for each criterion.
-  - Actionable suggestions for improvement.
-  - Auto-generated improved prompts.
+
+Prompt Tutor offers a robust and multi-layered system for evaluating and improving prompts. This system is deeply integrated with a detailed scoring rubric and review framework designed to align with real-world prompt engineering and LLM coaching use cases.
+
+#### 📌 Supported Prompt Types:
+- **Chatbot** – Instruction-based dialogue design
+- **Coding** – Precision coding instructions and test-case scenarios
+- **Image Generation** – Descriptive and creative visual composition
+- **Research** – Deep analytical or domain-specific question formation
+
+#### 🧮 Criteria-Based Scoring:
+
+##### 🔹 Core Criteria (General-Purpose Evaluation)
+These criteria apply across all prompt types and are defined in detail in the [📁 Prompt Evaluation Rubric](./Prompt_Evaluation_Rubric_Detailed.md):
+
+- **Clarity** – How clear and unambiguous the prompt is
+- **Specificity** – Relevance and precision of task or query details
+- **Structure** – Logical flow and formatting consistency
+- **Completeness** – Inclusion of all necessary context and instructions
+- **Complexity Management** – Appropriate handling of multi-step, layered, or abstract problems
+
+##### 🔸 Use Case–Specific Criteria
+Tailored scoring aligned with the unique nature of the task:
+
+- **Chatbot**: Emphasis on instruction tone, expected reply structure, and turn design
+- **Coding**: Correctness of requirements, constraints, and coverage of edge cases
+- **Image Generation**: Originality, visual clarity, and creative language
+- **Research**: Adherence to best practices like citations, scope framing, and domain accuracy
+
+#### 📊 Feedback & Suggestions:
+- A breakdown of scores based on rubric-aligned dimensions
+- Actionable suggestions with linked guiding questions from the rubric
+- Auto-generated refined prompts with recommendations for improvement
 
 ---
 
