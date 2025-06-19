@@ -182,10 +182,57 @@ Prompt Tutor is designed to adapt to the evolving AI landscape, supporting both 
 
 ---
 
+## 📊 Integrated Prompt Evaluation Rubric Tool
+
+### Overview
+
+To enhance prompt review quality and ensure consistency across coaching and benchmarking scenarios, Prompt Tutor incorporates the **Prompt Evaluation Rubric**, a detailed, layered scoring system designed to evaluate prompts based on clarity, structure, difficulty, specificity, and knowledge demand. It supports both **manual review** and **LLM-assisted evaluation**.
+
+### 🔍 Layered Rubric Framework
+
+| Layer | Name                         | Purpose                                                                 |
+|-------|------------------------------|-------------------------------------------------------------------------|
+| 1     | Structural Soundness         | Assesses role clarity, task formatting, and expected output             |
+| 2     | Cognitive Complexity         | Measures mental effort and domain crossing required by the prompt       |
+| 3     | Knowledge Stretch            | Evaluates how far the prompt pushes beyond model training               |
+| 4     | Intent Specificity & Depth   | Differentiates between token efficiency vs detailed task alignment      |
+
+Each criterion within a layer is scored from **1 (low)** to **5 (high)** and includes:
+
+- 📌 **Clear definitions**
+- ❓ **Guiding questions**
+- 💡 **Real-world examples**
+- 📏 **Scope and limitations for each score**
+
+### 🔄 How It's Used in the Review Process
+
+| Review Phase                | Rubric Usage                                                                 |
+|----------------------------|------------------------------------------------------------------------------|
+| **Pre-Review Analysis**     | Use Layer 1 to evaluate prompt construction quality                          |
+| **Detailed Analysis**       | Use all layers to break down complexity, knowledge push, and intent clarity |
+| **Feedback Generation**     | Layer scores guide targeted prompt improvements                             |
+| **Improvement Tracking**    | Layer scores trend user progress and effectiveness of revisions             |
+
+### 🧠 Review Automation and Training
+
+- **Manual Scoring Interface**: Reviewers assign scores per layer and document reasoning.
+- **LLM Review Mode**: Automatically rate prompts using the rubric via API or embedded LLM logic.
+- **Reviewer Calibration**: Train teams using the rubric to align review consistency.
+- **Rubric Scoring Template**: Used in user profiles, leaderboard rankings, and feedback reports.
+
+### 📁 Rubric File
+
+The full rubric is stored in [Prompt_Evaluation_Rubric_Detailed.md](./Prompt_Evaluation_Rubric_Detailed.md) and includes:
+
+- All scoring criteria (1–5)
+- Guiding questions for each score
+- Prompt examples for every rating tier
+- Full breakdown of Layers 1–4
+
 ## Future Roadmap
 - **Enhanced Analytics:** Introduce detailed insights and visualizations to track user improvement.
 - **Collaborative Features:** Enable team-based prompt reviews and evaluations.
-- **Benchmarking Expansion:** Incorporate datasets like Humanity's Last Exam (HLE) for advanced evaluation.
+- **Benchmarking Expansion:** Incorporate datasets like Humanity's Last Exam (HLE) for advanced evaluation. Model difficulty benchmark using Humanity’s Last Exam (HLE). Scoring bias detection through layer transparency.
 - **Additional Model Integrations:** Expand support for emerging AI models and platforms.
 
 ---
