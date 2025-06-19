@@ -229,6 +229,19 @@ The full rubric is stored in [Prompt_Evaluation_Rubric_Detailed.md](./Prompt_Eva
 - Prompt examples for every rating tier
 - Full breakdown of Layers 1–4
 
+### 📝 Review Process Guide
+
+The complete review methodology is documented in [Review Process.readme.md](./Review%20Process.readme.md) and includes:
+
+- ✅ Step-by-step **LLM review workflow**  
+- 🧠 **Pre-review analysis** and prompt assessment techniques  
+- 📊 **Quality metrics** for evaluating response accuracy, coaching effectiveness, and interaction tone  
+- 🔍 Review categories: **Technical**, **Content**, and **Style**  
+- 🛠️ **Improvement strategies** for both prompts and model outputs  
+- 📈 **Continuous improvement** practices for review teams and automation tools
+
+This document complements the Prompt Evaluation Rubric by focusing on evaluating **LLM-generated responses**, offering a structured lens for feedback, scoring, and revision cycles.
+
 ## Future Roadmap
 - **Enhanced Analytics:** Introduce detailed insights and visualizations to track user improvement.
 - **Collaborative Features:** Enable team-based prompt reviews and evaluations.
