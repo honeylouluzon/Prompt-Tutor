@@ -231,3 +231,114 @@ A robust review process is essential for maintaining high-quality LLM interactio
 
 ---
 Note: This document should be regularly updated to reflect new insights, tools, and best practices in LLM review processes. 
+
+
+
+
+# 🔁 Enhanced LLM Review Process Guide with Rubric Mapping
+
+## ✅ Overview
+
+This guide ensures rigorous, consistent, and transparent reviews of both prompts and LLM-generated outputs in coaching or benchmarking workflows. It leverages two complementary rubric tools:
+
+- [`Prompt_Evaluation_Rubric_Detailed.md`](./Prompt_Evaluation_Rubric_Detailed.md)
+- [`LLM_Response_Evaluation_Rubric.md`](./LLM_Response_Evaluation_Rubric.md)
+
+Each review phase below maps to specific rubric layers and criteria to ensure evaluators have a consistent reference.
+
+---
+
+## 📊 Core Components
+
+### 1. Pre-Review Analysis
+
+| Subtask | Description | Rubric Used | Mapping |
+|--------|-------------|-------------|---------|
+| **Context Assessment** | Understand coaching scenario, objectives, outcomes | ❌ None | 🔹 *Suggested*: Add a context suitability rubric (e.g., user persona fit, coaching goal clarity) |
+| **Prompt Structure Review** | Analyze clarity, format, completeness, instruction specificity | ✅ Prompt Rubric – Layer 1 | `1.1 Role Clarity`, `1.2 Instruction Format`, `1.3 Output Expectation` |
+
+---
+
+### 2. Review Framework
+
+#### 2.1 Quality Metrics
+
+| Metric | Description | Rubric Used | Mapping |
+|--------|-------------|-------------|---------|
+| **Response Accuracy** | Factuality, logic, relevance, completeness | ✅ Response Rubric – Layer 1 | `1.1 Correctness`, `1.2 Reasoning`, `1.3 Groundedness`, `1.4 Completeness` |
+| **Coaching Effectiveness** | Guidance, actionability, follow-up | ✅ Response Rubric – Layer 2 | `2.1 Clarity`, `2.2 Depth`, `2.3 Usefulness` |
+| **Interaction Quality** | Tone, engagement, timing | ✅ Response Rubric – Layer 3 | `3.1 Style`, `3.2 Flow`, `3.3 Empathy & Professionalism` |
+
+#### 2.2 Review Categories
+
+| Category | Description | Rubric Used | Mapping |
+|----------|-------------|-------------|---------|
+| **Technical Review** | Code logic, best practices, security | ✅ Response Rubric – Layer 4 | `4.1 Correctness`, `4.2 Safety`, `4.3 Efficiency` |
+| **Content Review** | Accuracy, source reliability, relevance | ✅ Response Rubric – Layer 1 & 2 | `1.1–1.4`, `2.2`, `2.3` |
+| **Style Review** | Tone, language, formatting | ✅ Response Rubric – Layer 3 | `3.1–3.3` |
+
+---
+
+### 3. Review Process Steps
+
+| Step | Description | Rubric Used | Mapping |
+|------|-------------|-------------|---------|
+| **Initial Assessment** | Evaluate prompt and intent | ✅ Prompt Rubric – Layer 4 | `4.1 Intent Clarity`, `4.2 Justification`, `4.3 Efficiency` |
+| **Detailed Analysis** | Assess LLM response depth and logic | ✅ Response Rubric – Full | Full coverage of Layers 1–4 |
+| **Feedback Generation** | Write actionable improvement suggestions | ✅ Prompt & Response Rubric | Use low-scoring criteria to guide feedback |
+| **Implementation Review** | Validate post-improvement results | ⚠️ *Gap* | 🔹 *Suggested*: Add a follow-up rubric to assess version diffs or improvements |
+
+---
+
+### 4. Quality Control Measures
+
+| Task | Description | Rubric Used | Mapping |
+|------|-------------|-------------|---------|
+| **Automated Checks** | Grammar, format, syntax | Partial – Response Rubric | Some style in Layer 3 |
+| **Manual Review Points** | Content depth, user relevance, response quality | ✅ Response Rubric – Full | Especially Layers 2 & 3 |
+
+---
+
+### 5. Improvement Strategies
+
+| Strategy | Description | Rubric Used | Mapping |
+|----------|-------------|-------------|---------|
+| **Prompt Enhancement** | Refine clarity, structure, and constraints | ✅ Prompt Rubric – Layer 1 & 4 | `1.1–1.3`, `4.1–4.3` |
+| **Response Optimization** | Increase clarity, engagement, and completeness | ✅ Response Rubric – Layer 1–3 | Especially `2.1`, `2.2`, `3.1`, `3.2` |
+
+---
+
+## 🧰 Tools and Roles
+
+- **Review Templates**: Use structured fields referencing rubric layer/criteria
+- **Training**: Reviewer calibration using annotated examples
+- **Team Roles**:
+  - Lead Reviewer: Ensures rubric alignment
+  - Technical Expert: Focuses on Layer 4 (Technical)
+  - Content Specialist: Layers 1–2
+  - QA: Cross-checks rubric scoring vs examples
+
+---
+
+## 🔄 Continuous Improvement
+
+| Subtask | Description | Rubric Used | Mapping |
+|---------|-------------|-------------|---------|
+| **Feedback Loop** | Aggregate rubric-based metrics | ✅ Prompt & Response Rubric | Track rubric scores over time |
+| **Learning Programs** | Train with rubric-aligned datasets | ✅ Prompt Rubric + Response Rubric | Include edge cases and scoring disagreements |
+
+---
+
+## 🧩 Identified Gaps & Suggestions
+
+| Area | Gap | Suggestion |
+|------|-----|------------|
+| Context Fit | No formal rubric for coaching goal appropriateness | ➕ Add "Prompt Intent Alignment" rubric item |
+| Version Comparison | No formal rubric to score improvement across versions | ➕ Add "Revision Score Delta" |
+| Long-term Tracking | No rubric for scoring longitudinal performance | ➕ Add "Reviewer Drift Metric" |
+
+---
+
+## ✅ Conclusion
+
+The **Prompt Evaluation Rubric** and **Response Evaluation Rubric** comprehensively support the **LLM Review Process**. With minor additions (e.g. ethics, revision impact), the framework becomes fully capable of supporting quality and compliance in LLM coaching and benchmarking applications.
