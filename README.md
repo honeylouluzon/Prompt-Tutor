@@ -40,37 +40,35 @@ Prompt Tutor supports a wide variety of AI models, enabling users to explore pro
 
 ### 2. Comprehensive Prompt Evaluation
 
-Prompt Tutor offers a robust and multi-layered system for evaluating and improving prompts. This system is deeply integrated with a detailed scoring rubric and review framework designed to align with real-world prompt engineering and LLM coaching use cases.
+Prompt Tutor integrates a robust **Prompt Evaluation Rubric Tool** that follows a structured methodology outlined in the [Review Process Guide](./Review%20Process.readme) and detailed in the [Prompt Evaluation Rubric](./Prompt_Evaluation_Rubric_Detailed.md). This system provides a consistent, transparent, and scalable approach to analyzing and scoring prompt quality across various use cases.
 
-#### 📌 Supported Prompt Types:
+#### 🔍 Supported Prompt Types:
 - **Chatbot** – Instruction-based dialogue design
-- **Coding** – Precision coding instructions and test-case scenarios
-- **Image Generation** – Descriptive and creative visual composition
-- **Research** – Deep analytical or domain-specific question formation
+- **Coding** – Task-focused programming prompts and constraints
+- **Image Generation** – Descriptive and creative visual language
+- **Research** – Deep analytical and domain-specific queries
 
-#### 🧮 Criteria-Based Scoring:
+#### 📊 Criteria-Based Scoring:
+Prompt evaluation is guided by a multi-layer rubric with specific scoring logic and subcriteria:
 
-##### 🔹 Core Criteria (General-Purpose Evaluation)
-These criteria apply across all prompt types and are defined in detail in the [📁 Prompt Evaluation Rubric](./Prompt_Evaluation_Rubric_Detailed.md):
+- **Core Evaluation Criteria** *(from the integrated rubric)*:
+  - **Clarity** – Unambiguity and interpretability of the prompt
+  - **Specificity** – Precision of task definition
+  - **Structure** – Logical and functional arrangement
+  - **Completeness** – Adequacy of context and constraints
+  - **Complexity Management** – Handling of multi-faceted or layered questions
 
-- **Clarity** – How clear and unambiguous the prompt is
-- **Specificity** – Relevance and precision of task or query details
-- **Structure** – Logical flow and formatting consistency
-- **Completeness** – Inclusion of all necessary context and instructions
-- **Complexity Management** – Appropriate handling of multi-step, layered, or abstract problems
+- **Use Case–Specific Criteria**:
+  - **Chatbot** – Instructional clarity and dialogue tone
+  - **Coding** – Precision in logic, correctness, and constraint handling
+  - **Image Generation** – Creativity, vividness, and visual prompt strength
+  - **Research** – Use of best practices, reliability, and scope definition
 
-##### 🔸 Use Case–Specific Criteria
-Tailored scoring aligned with the unique nature of the task:
-
-- **Chatbot**: Emphasis on instruction tone, expected reply structure, and turn design
-- **Coding**: Correctness of requirements, constraints, and coverage of edge cases
-- **Image Generation**: Originality, visual clarity, and creative language
-- **Research**: Adherence to best practices like citations, scope framing, and domain accuracy
-
-#### 📊 Feedback & Suggestions:
-- A breakdown of scores based on rubric-aligned dimensions
-- Actionable suggestions with linked guiding questions from the rubric
-- Auto-generated refined prompts with recommendations for improvement
+#### 💡 Feedback & Suggestions:
+- Detailed score breakdown aligned with the rubric layers
+- Context-aware improvement tips
+- Auto-generated refined prompt examples
+- Guiding questions and references from the rubric to support prompt improvement
 
 ---
 
@@ -236,7 +234,7 @@ The full rubric is stored in [Prompt_Evaluation_Rubric_Detailed.md](./Prompt_Eva
 
 ### 📝 Review Process Guide
 
-The complete review methodology is documented in [Review Process.readme.md](./Review%20Process.readme.md) and includes:
+The complete review methodology is documented in [Review Process.readme.md](./Review%20Process.readme) and includes:
 
 - ✅ Step-by-step **LLM review workflow**  
 - 🧠 **Pre-review analysis** and prompt assessment techniques  
