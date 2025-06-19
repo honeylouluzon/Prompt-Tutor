@@ -40,7 +40,7 @@ Prompt Tutor supports a wide variety of AI models, enabling users to explore pro
 
 ### 2. Comprehensive Prompt Evaluation
 
-Prompt Tutor integrates a robust **Prompt Evaluation Rubric Tool** that follows a structured methodology outlined in the [Review Process Guide](./Review%20Process.readme) and detailed in the [Prompt Evaluation Rubric](./Prompt_Evaluation_Rubric_Detailed.md). You could also refer in [Integrated Prompt Evaluation Rubric Tool](##integrated-prompt-evaluation-rubric-tool) section of this file. This system provides a consistent, transparent, and scalable approach to analyzing and scoring prompt quality across various use cases.
+Prompt Tutor integrates a robust **Prompt Evaluation Rubric Tool** that follows a structured methodology outlined in the [Review Process Guide](./Review%20Process.readme) and detailed in the [Prompt Evaluation Rubric](./Prompt_Evaluation_Rubric_Detailed.md)(See [Integrated Prompt Evaluation Rubric Tool](#integrated-prompt-evaluation-rubric-tool) section of this file). This system provides a consistent, transparent, and scalable approach to analyzing and scoring prompt quality across various use cases.
 
 #### 🔍 Supported Prompt Types:
 - **Chatbot** – Instruction-based dialogue design
