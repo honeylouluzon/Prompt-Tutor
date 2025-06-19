@@ -40,7 +40,7 @@ Prompt Tutor supports a wide variety of AI models, enabling users to explore pro
 
 ### 2. Comprehensive Prompt Evaluation
 
-Prompt Tutor integrates a robust **Prompt Evaluation Rubric Tool** that follows a structured methodology outlined in the [Review Process Guide](./Review%20Process.readme.md) and detailed in the [Prompt Evaluation Rubric](./Prompt_Evaluation_Rubric_Detailed.md) (see [Integrated Prompt Evaluation Rubric Tool](#integrated-prompt-evaluation-rubric-tool) section of this file). This system provides a consistent, transparent, and scalable approach to analyzing and scoring prompt quality across various use cases.
+Prompt Tutor integrates a robust **[Integrated Prompt & Response Evaluation Rubric Tools](#integrated-prompt-&-response-evaluation-rubric-tools)** that follows a structured methodology outlined in the [Review Process Guide](./Review%20Process.readme.md). This system provides a consistent, transparent, and scalable approach to analyzing and scoring prompt quality across various use cases.
 
 #### 🔍 Supported Prompt Types:
 - **Chatbot** – Instruction-based dialogue design
@@ -185,65 +185,97 @@ To access the guide, navigate to the **Tutorials** section in the app and select
 
 ---
 
-## Integrated Prompt Evaluation Rubric Tool
+## 🧠 Integrated Prompt & Response Evaluation Rubric Tools
 
 ### Overview
 
-To enhance prompt review quality and ensure consistency across coaching and benchmarking scenarios, Prompt Tutor incorporates the **Prompt Evaluation Rubric**, a detailed, layered scoring system designed to evaluate prompts based on clarity, structure, difficulty, specificity, and knowledge demand. It supports both **manual review** and **LLM-assisted evaluation**.
+To ensure high-quality and consistent coaching or benchmarking scenarios, **Prompt Tutor** incorporates **two complementary evaluation tools**:
 
-### 🔍 Layered Rubric Framework
+- 🧾 **Prompt Evaluation Rubric** – Evaluates prompt construction across structure, depth, and difficulty.
+- 🧾 **LLM Response Evaluation Rubric** – Assesses the quality and effectiveness of model-generated responses.
+
+Both are designed to support **manual review**, **LLM-assisted feedback**, and **automated evaluation workflows**.
+
+---
+
+### 🔍 Prompt Evaluation Rubric
+
+This rubric assesses **prompt quality** using a 4-layer framework:
 
 | Layer | Name                         | Purpose                                                                 |
 |-------|------------------------------|-------------------------------------------------------------------------|
-| 1     | Structural Soundness         | Assesses role clarity, task formatting, and expected output             |
-| 2     | Cognitive Complexity         | Measures mental effort and domain crossing required by the prompt       |
-| 3     | Knowledge Stretch            | Evaluates how far the prompt pushes beyond model training               |
-| 4     | Intent Specificity & Depth   | Differentiates between token efficiency vs detailed task alignment      |
+| 1     | Structural Soundness         | Role clarity, task formatting, and output expectations                  |
+| 2     | Cognitive Complexity         | Mental effort and cross-domain reasoning                                |
+| 3     | Knowledge Stretch            | Extent to which prompts challenge model boundaries                      |
+| 4     | Intent Specificity & Depth   | Precision of instructions and goal clarity                              |
 
-Each criterion within a layer is scored from **1 (low)** to **5 (high)** and includes:
+Each layer includes:
 
-- 📌 **Clear definitions**
-- ❓ **Guiding questions**
-- 💡 **Real-world examples**
-- 📏 **Scope and limitations for each score**
+- 📌 Clear definitions
+- ❓ Guiding questions
+- 💡 Real-world examples
+- 📏 Scoring from 1–5
 
-### 🔄 How It's Used in the Review Process
+### 📁 Prompt Rubric File
 
-| Review Phase                | Rubric Usage                                                                 |
-|----------------------------|------------------------------------------------------------------------------|
-| **Pre-Review Analysis**     | Use Layer 1 to evaluate prompt construction quality                          |
-| **Detailed Analysis**       | Use all layers to break down complexity, knowledge push, and intent clarity |
-| **Feedback Generation**     | Layer scores guide targeted prompt improvements                             |
-| **Improvement Tracking**    | Layer scores trend user progress and effectiveness of revisions             |
+Stored in [Prompt_Evaluation_Rubric_Detailed.md](./Prompt_Evaluation_Rubric_Detailed.md) and includes:
 
-### 🧠 Review Automation and Training
-
-- **Manual Scoring Interface**: Reviewers assign scores per layer and document reasoning.
-- **LLM Review Mode**: Automatically rate prompts using the rubric via API or embedded LLM logic.
-- **Reviewer Calibration**: Train teams using the rubric to align review consistency.
-- **Rubric Scoring Template**: Used in user profiles, leaderboard rankings, and feedback reports.
-
-### 📁 Rubric File
-
-The full rubric is stored in [Prompt_Evaluation_Rubric_Detailed.md](./Prompt_Evaluation_Rubric_Detailed.md) and includes:
-
-- All scoring criteria (1–5)
-- Guiding questions for each score
-- Prompt examples for every rating tier
 - Full breakdown of Layers 1–4
+- Scoring descriptions with examples
+- Reviewer guidance for each level
 
-### 📝 Review Process Guide
+---
 
-The complete review methodology is documented in [Review Process.readme.md](./Review%20Process.readme.md) and includes:
+### 📊 LLM Response Evaluation Rubric
 
-- ✅ Step-by-step **LLM review workflow**  
-- 🧠 **Pre-review analysis** and prompt assessment techniques  
-- 📊 **Quality metrics** for evaluating response accuracy, coaching effectiveness, and interaction tone  
-- 🔍 Review categories: **Technical**, **Content**, and **Style**  
-- 🛠️ **Improvement strategies** for both prompts and model outputs  
-- 📈 **Continuous improvement** practices for review teams and automation tools
+This new rubric scores **model-generated responses** based on output-level quality:
 
-This document complements the Prompt Evaluation Rubric by focusing on evaluating **LLM-generated responses**, offering a structured lens for feedback, scoring, and revision cycles.
+| Dimension              | Focus Area                                  |
+|------------------------|---------------------------------------------|
+| 1. Factual Accuracy    | Verifiability, correctness, and logic       |
+| 2. Instructional Alignment | Adherence to the original prompt/task     |
+| 3. Coherence & Structure | Clarity, format, and logical organization |
+| 4. Insight & Usefulness | Reasoning depth, novelty, actionable value |
+| 5. Tone & Style        | Appropriateness and engagement              |
+
+Each response is rated from **1 (poor)** to **5 (excellent)** per category and includes:
+
+- 🔎 Guiding questions per dimension
+- 🧠 Examples for calibration
+- 🛠️ Use cases: response validation, feedback cycles, reviewer training
+
+### 📁 Response Rubric File
+
+Stored in [LLM_Response_Evaluation_Rubric.md](./LLM_Response_Evaluation_Rubric.md) and includes:
+
+- Full dimension-based scoring system
+- Reviewer calibration guidelines
+- Output benchmarking support
+
+---
+
+### 🔄 How They Integrate in the Review Process
+
+The rubrics work together within the [Review Process.readme.md](./Review%20Process.readme.md), used across multiple phases:
+
+| Review Phase           | Prompt Rubric Use                      | Response Rubric Use                            |
+|------------------------|----------------------------------------|------------------------------------------------|
+| Pre-Review Analysis    | Evaluate prompt structure & clarity    | —                                              |
+| Detailed Review        | Analyze intent, complexity, depth      | Score outputs for accuracy, value, structure   |
+| Feedback Generation    | Suggest prompt improvements            | Offer response-specific feedback & enhancements|
+| Reviewer Training      | Calibrate prompt design best practices | Align evaluation consistency for responses     |
+
+---
+
+### 🧠 Review Automation and Scoring
+
+- **Manual Scoring Interfaces** – Rubrics used by human reviewers
+- **LLM-Assisted Review** – Responses and prompts evaluated via scoring APIs
+- **Evaluation Templates** – Both rubrics support reviewer consistency and leaderboard systems
+
+---
+
+By combining prompt and output rubrics, **Prompt Tutor** provides a **complete, explainable, and consistent evaluation framework** for prompt engineering, AI coaching, and system benchmarking.
 
 ## Future Roadmap
 - **Enhanced Analytics:** Introduce detailed insights and visualizations to track user improvement.
