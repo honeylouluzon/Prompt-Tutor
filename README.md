@@ -12,21 +12,23 @@ Prompt Tutor is a powerful tool designed to help users create, improve, and eval
 ## Features
 
 ### 1. Multi-Model Support
-Prompt Tutor supports a wide variety of AI models, enabling users to leverage the capabilities of different systems to suit their needs.  
-**Supported AI Models:**
-- **OpenAI**: GPT-4, GPT-3.5, etc.
-- **Claude**: Anthropic's Claude models for conversational and reasoning tasks.
-- **Llama**: Meta AI's Llama series (local or hosted setups).
-- **DeepSeek**: Specialized for nuanced research assistance.
-- **Mistral**: Lightweight, high-performance models for efficient inference.
-- **Gemini**: Google's advanced conversational AI platform.
-- **Perplexity**: AI for question answering and summarization.
-- **Other/Custom Models**: Expandable via API configuration for models like Cohere, Falcon, Aleph Alpha, etc.
 
-**Key Features:**
-- **API Key Management**: Models requiring API keys (e.g., OpenAI, Claude, DeepSeek) prompt users for keys, securely stored in the browser's local storage.
-- **Simulation Mode**: Default mode for models like Llama and Mistral that do not require keys.
-- **Real-Time Model Switching**: Seamlessly switch between models with dynamic backend configuration.
+Prompt Tutor supports a wide variety of AI models, enabling users to explore prompt performance across different systems and use cases.
+
+#### 🔧 Key Functional Features:
+- **API Key Management**: For models like OpenAI, Claude, DeepSeek, users are prompted to enter API keys, which are securely stored in the browser’s local storage.
+- **Simulation Mode**: Models like Llama and Mistral (open-source or local) operate without requiring API keys.
+- **Real-Time Model Switching**: Seamlessly switch between models with dynamic backend configuration, enabling rapid comparison and experimentation.
+
+#### 🧠 Supported AI Models and Their Use Cases:
+- **OpenAI (GPT-4, GPT-3.5)** – Versatile general-purpose AI, excellent for structured prompting and creative generation.
+- **Claude (Anthropic)** – Focuses on safety, alignment, and reasoning for high-trust conversations.
+- **Llama (Meta AI)** – Lightweight open models ideal for local deployment or experimentation.
+- **DeepSeek** – Research-focused models optimized for analytical and retrieval-heavy tasks.
+- **Mistral** – Compact, fast models designed for efficient inference with high-quality output.
+- **Gemini (Google)** – Advanced conversational platform with strong integration capabilities.
+- **Perplexity AI** – Specialized in summarization and question answering using real-time search.
+- **Other/Custom Models** – Fully extendable via API configuration (e.g., Cohere, Falcon, Aleph Alpha).
 
 ---
 
@@ -166,19 +168,6 @@ To access the guide, navigate to the **Tutorials** section in the app and select
   - Option to clear keys at any time for enhanced privacy.
 - **Simulation Mode:**
   - Enables prompt testing without exposing sensitive API keys.
-
----
-
-## Expanded AI Model Options
-Prompt Tutor is designed to adapt to the evolving AI landscape, supporting both existing and emerging models. Here's a non-exhaustive list of supported and expandable models:
-- **OpenAI (GPT Series)**: For general-purpose AI tasks.
-- **Claude (Anthropic)**: Focused on ethical and explainable AI.
-- **Llama (Meta AI)**: Ideal for lightweight and hosted solutions.
-- **DeepSeek**: Research-focused AI.
-- **Mistral**: For optimized performance in smaller models.
-- **Gemini (Google)**: Advanced conversational AI.
-- **Perplexity AI**: For precise Q&A and summarization tasks.
-- **Other/Custom Models**: Expandable via API configuration for models like Cohere, Falcon, Aleph Alpha, etc.
 
 ---
 
