@@ -16,11 +16,17 @@ Prompt Tutor is a powerful tool designed to help users create, improve, and eval
 Prompt Tutor supports a wide variety of AI models, enabling users to explore prompt performance across different systems and use cases.
 
 #### 🔧 Key Functional Features:
-- **API Key Management**: For models like OpenAI, Claude, DeepSeek, users are prompted to enter API keys, which are securely stored in the browser’s local storage.
-- **Simulation Mode**: Models like Llama and Mistral (open-source or local) operate without requiring API keys.
-- **Real-Time Model Switching**: Seamlessly switch between models with dynamic backend configuration, enabling rapid comparison and experimentation.
+
+- **API Key Management**: For cloud-hosted models like OpenAI, Claude, and DeepSeek, users are prompted to enter their API keys. These keys are securely stored in the browser’s local storage.
+
+- **Stateless Mode** *(for local models or keyless APIs)*: Models such as Llama and Mistral (self-hosted or open-source variants) do not require API keys. They can be used directly if configured through the system’s backend.
+
+- **Simulation Mode (Fallback Logic)**: If a model is unavailable (e.g., due to API limits or offline conditions), Prompt Tutor uses predefined logic or template responses built into the system. These static responses simulate LLM behavior and follow the app's evaluation structure—ideal for offline use, demos, or testing scenarios without a live model.
+
+- **Real-Time Model Switching**: Switch between different models on the fly with dynamic backend configuration, enabling live comparison and iterative refinement.
 
 #### 🧠 Supported AI Models and Their Use Cases:
+
 - **OpenAI (GPT-4, GPT-3.5)** – Versatile general-purpose AI, excellent for structured prompting and creative generation.
 - **Claude (Anthropic)** – Focuses on safety, alignment, and reasoning for high-trust conversations.
 - **Llama (Meta AI)** – Lightweight open models ideal for local deployment or experimentation.
