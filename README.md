@@ -185,7 +185,7 @@ To access the guide, navigate to the **Tutorials** section in the app and select
 
 ---
 
-## 📊 Integrated Prompt Evaluation Rubric Tool
+## Integrated Prompt Evaluation Rubric Tool
 
 ### Overview
 
